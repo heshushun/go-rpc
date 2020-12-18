@@ -5,7 +5,6 @@ import (
 	"encoding/gob"
 	"io"
 	"log"
-	"os"
 )
 
 type GobCodec struct {
@@ -16,7 +15,7 @@ type GobCodec struct {
 }
 
 func (c *GobCodec) Close() error {
-	return c.dec.Decode(os.Hostname())
+	return c.conn.Close()
 }
 
 func (c *GobCodec) ReadHeader(h *Header) error {
