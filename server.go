@@ -3,7 +3,7 @@ package geerpc
 import (
 	"encoding/json"
 	"fmt"
-	"gee-rpc/codec"
+	"geerpc/codec"
 	"io"
 	"log"
 	"net"
