@@ -2,9 +2,9 @@ package main
 
 import (
 	"context"
-	"geerpc"
-	"geerpc/registry"
-	"geerpc/xclient"
+	"gorpc"
+	"gorpc/registry"
+	"gorpc/xclient"
 	"log"
 	"net"
 	"net/http"
@@ -37,7 +37,7 @@ func startRegistry(wg *sync.WaitGroup) {
 func startServer(registryAddr string, wg *sync.WaitGroup) {
 	var foo Foo
 	l, _ := net.Listen("tcp", ":0")
-	server := geerpc.NewServer()
+	server := gorpc.NewServer()
 	_ = server.Register(&foo)
 	registry.Heartbeat(registryAddr, "tcp@"+l.Addr().String(), 0)
 	wg.Done()
@@ -96,7 +96,7 @@ func broadcast(registry string) {
 
 func main() {
 	log.SetFlags(0)
-	registryAddr := "http://localhost:9999/_geerpc_/registry"
+	registryAddr := "http://localhost:9999/_gorpc_/registry"
 	var wg sync.WaitGroup
 	wg.Add(1)
 	go startRegistry(&wg)

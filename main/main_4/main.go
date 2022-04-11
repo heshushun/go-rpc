@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"geerpc"
+	"gorpc"
 	"log"
 	"net"
 	"sync"
@@ -20,7 +20,7 @@ func (f Foo) Sum(args Args, reply *int) error {
 
 func startServer(addr chan string) {
 	var foo Foo
-	if err := geerpc.Register(&foo); err != nil {
+	if err := gorpc.Register(&foo); err != nil {
 		log.Fatal("register error:", err)
 	}
 	// pick a free port
@@ -30,14 +30,14 @@ func startServer(addr chan string) {
 	}
 	log.Println("start rpc server on", l.Addr())
 	addr <- l.Addr().String()
-	geerpc.Accept(l)
+	gorpc.Accept(l)
 }
 
 func main() {
 	log.SetFlags(0)
 	addr := make(chan string)
 	go startServer(addr)
-	client, _ := geerpc.Dial("tcp", <-addr)
+	client, _ := gorpc.Dial("tcp", <-addr)
 	defer func() { _ = client.Close() }()
 
 	time.Sleep(time.Second)

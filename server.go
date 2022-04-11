@@ -1,10 +1,10 @@
-package geerpc
+package gorpc
 
 import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"geerpc/codec"
+	"gorpc/codec"
 	"io"
 	"log"
 	"net"
@@ -18,7 +18,7 @@ import (
 const MagicNumber = 0x3bef5c
 
 type Option struct {
-	MagicNumber    int           // MagicNumber marks this's geerpc request
+	MagicNumber    int           // MagicNumber marks this's gorpc request
 	CodecType      codec.Type    // client may choose different Codec to encode body
 	ConnectTimeout time.Duration // 0 means no limit
 	HandleTimeout  time.Duration
@@ -228,8 +228,8 @@ func (server *Server) findService(serviceMethod string) (svc *service, mtype *me
 
 const (
 	connected        = "200 Connected to Gee RPC"
-	defaultRPCPath   = "/_geerpc_"
-	defaultDebugPath = "/debug/geerpc"
+	defaultRPCPath   = "/_gorpc_"
+	defaultDebugPath = "/debug/gorpc"
 )
 
 // ServeHTTP implements an http.Handler that answers RPC requests

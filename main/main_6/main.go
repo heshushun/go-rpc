@@ -2,8 +2,8 @@ package main
 
 import (
 	"context"
-	"geerpc"
-	"geerpc/xclient"
+	"gorpc"
+	"gorpc/xclient"
 	"log"
 	"net"
 	"sync"
@@ -28,7 +28,7 @@ func (f Foo) Sleep(args Args, reply *int) error {
 func startServer(addrCh chan string) {
 	var foo Foo
 	l, _ := net.Listen("tcp", ":0")
-	server := geerpc.NewServer()
+	server := gorpc.NewServer()
 	_ = server.Register(&foo)
 	addrCh <- l.Addr().String()
 	server.Accept(l)

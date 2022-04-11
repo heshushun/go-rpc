@@ -2,7 +2,7 @@ package xclient
 
 import (
 	"context"
-	. "geerpc"
+	. "gorpc"
 	"io"
 	"reflect"
 	"sync"

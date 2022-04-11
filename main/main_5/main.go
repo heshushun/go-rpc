@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"geerpc"
+	"gorpc"
 	"log"
 	"net"
 	"net/http"
@@ -22,14 +22,14 @@ func (f Foo) Sum(args Args, reply *int) error {
 func startServer(addrCh chan string) {
 	var foo Foo
 	l, _ := net.Listen("tcp", ":9999")
-	_ = geerpc.Register(&foo)
-	geerpc.HandleHTTP()
+	_ = gorpc.Register(&foo)
+	gorpc.HandleHTTP()
 	addrCh <- l.Addr().String()
 	_ = http.Serve(l, nil)
 }
 
 func call(addrCh chan string) {
-	client, _ := geerpc.DialHTTP("tcp", <-addrCh)
+	client, _ := gorpc.DialHTTP("tcp", <-addrCh)
 	defer func() { _ = client.Close() }()
 
 	time.Sleep(time.Second)

@@ -1,4 +1,4 @@
-package geerpc
+package gorpc
 
 import (
 	"fmt"

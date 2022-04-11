@@ -1,3 +1,3 @@
-module geerpc
+module gorpc
 
 go 1.15
